@@ -18,13 +18,18 @@ const camelize = text => {
   return text.substr(0, 1).toLowerCase() + text.substr(1)
 }
 
-const mapToObjectNotation = props => {
+/**
+ * @template T
+ * @param {T} props
+ * @returns {import("type-fest").CamelCasedPropertiesDeep<T> & import("type-fest").KebabCase<T>}
+ */
+const keysToCamelCase = (props) => {
   for (var prop in props)
     props[camelize(prop)] = props[prop]
   return props
 }
 
-const OpenProps = mapToObjectNotation({
+const OpenProps = keysToCamelCase({
   ...Animations,
   ...Sizes,
   ...Colors,
